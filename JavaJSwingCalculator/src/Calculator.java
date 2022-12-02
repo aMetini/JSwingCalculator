@@ -32,11 +32,13 @@ public class Calculator implements ActionListener {
 
     private double inputNo;
     private double solution;
+    private int resetVal;
     private char operator;
 
     Calculator() {
         inputNo = 0;
         solution = 0;
+        resetVal = 0;
 
         initializeGuiComponents();
         createCalculatorFrame();
@@ -114,10 +116,8 @@ public class Calculator implements ActionListener {
         outputField.setEditable(false);
         outputField.setHorizontalAlignment(SwingConstants.RIGHT);
         frame.add(outputField);
-        // outputField.setText("0"); I want to be able to set the calculator to 0 but
-        // replace it with another # if another # is pressed
-        // Problem: If you start at 0 and then press (ex) 2, the display will look like
-        // "02".
+        outputField.setText(Integer.toString(resetVal)); //I want to be able to set the calculator to 0 but replace it with another # if another # is pressed
+        // Problem: If you start at 0 and then press (ex) 2, the display will look like "02".
     }
 
     private void addOnButton() {
@@ -305,6 +305,7 @@ public class Calculator implements ActionListener {
         clrButton.addActionListener(this);
     }
 
+
     /*
      * (non-Javadoc)
      * 
@@ -327,33 +328,17 @@ public class Calculator implements ActionListener {
         } else if (cmdSource == offButton) {
             disable();
         } else if (cmdSource == clrButton) {
-            // label.setText("");
-            outputField.setText("");
+            clearOutput();
         } else if (cmdSource == delButton) {
-            // Takes length of getText (i.e. calculator entry in outputField)
-            // We will use StringBuilder to create a mutable string of chars like an array
-            // from the outputField entry.
-            int length = outputField.getText().length();
-            // Val removes one number from the length of getText entry so that it starts
-            // deleting from the last element of our string of chars
-            int val = length - 1;
-
-            // If outputField length is NOT empty or begins at the 0 index start deleting
-            if (length > 0) {
-                StringBuilder delBack = new StringBuilder(outputField.getText());
-                delBack.deleteCharAt(val);
-                outputField.setText(delBack.toString());
-            } else {
-                outputField.setText("0"); // Problem: If you press another # afterward, it appears like (ex. 02)
-            }
+            deleteInput();
         } else if (cmdSource == zeroButton) {
-            // If zero is pressed and is the first number in the outputField, set the
-            // outputField to blank
-            if (outputField.getText().equals("0")) {
-                outputField.setText("0");
-            } else {
-                outputField.setText(outputField.getText() + "0");
-            }
+            outputField.setText("0");
+            // // If zero is pressed and is the first number in the outputField, set the outputField to blank
+            // if (outputField.getText().equals("0")) {
+            //     outputField.setText("");
+            // } else {
+            //     outputField.setText(outputField.getText() + "0");
+            // }
         } else if (cmdSource == decButton) {
             if (outputField.getText().contains(".")) {
                 return;
@@ -395,86 +380,121 @@ public class Calculator implements ActionListener {
             outputField.setText("");
             operator = '/';
         } else if (cmdSource == sqButton) {
-            // Error handling for squaring an empty field
-            if (outputField.getText().equals("")) {
-                outputField.setText("NaN");
+            calculateSquare();
+        } else if (cmdSource == sqRtButton) {
+            calculateSquareRt();
+        } else if (cmdSource == reciprocalButton) {
+            calculateReciprocal();
+        } else if (cmdSource == equButton) {
+            calculate();
+        }
+    }
+
+    private void calculateSquare() {
+        // Error handling for squaring an empty field
+        if (outputField.getText().equals("")) {
+            outputField.setText("NaN");
+        } else {
+            inputNo = Double.parseDouble(outputField.getText());
+            double square = Math.pow(inputNo, 2);
+            String squareStr = Double.toString(square);
+            if (squareStr.endsWith(".0")) {
+                outputField.setText(squareStr.replace(".0", ""));
             } else {
-                inputNo = Double.parseDouble(outputField.getText());
-                double square = Math.pow(inputNo, 2);
-                String squareStr = Double.toString(square);
-                if (squareStr.endsWith(".0")) {
-                    outputField.setText(squareStr.replace(".0", ""));
-                } else {
-                    outputField.setText(squareStr);
-                }
                 outputField.setText(squareStr);
             }
-        } else if (cmdSource == sqRtButton) {
-            // Error handling for square rooting an empty field
-            if (outputField.getText().equals("")) {
-                outputField.setText("NaN");
+        }
+    }
+
+    private void calculateSquareRt() {
+        // Error handling for square rooting an empty field
+        if (outputField.getText().equals("")) {
+            outputField.setText("NaN");
+        } else {
+            inputNo = Double.parseDouble(outputField.getText());
+            Double squareRt = Math.sqrt(inputNo);
+            String sqRtStr = Double.toString(squareRt);
+            if (sqRtStr.endsWith(".0")) {
+                outputField.setText(sqRtStr.replace(".0", ""));
             } else {
-                inputNo = Double.parseDouble(outputField.getText());
-                Double squareRt = Math.sqrt(inputNo);
-                String sqRtStr = Double.toString(squareRt);
-                if (sqRtStr.endsWith(".0")) {
-                    outputField.setText(sqRtStr.replace(".0", ""));
-                } else {
-                    outputField.setText(sqRtStr);
-                }
-                outputField.setText(Double.toString(squareRt));
-            }
-        } else if (cmdSource == reciprocalButton) {
-            // Error handling for getting the reciprocal of an empty field
-            if (outputField.getText().equals("")) {
-                outputField.setText("NaN");
-            } else {
-                inputNo = Double.parseDouble(outputField.getText());
-                Double reciprocal = 1 / inputNo;
-                String reciprocalStr = Double.toString(reciprocal);
-                if (reciprocalStr.endsWith(".0")) {
-                    outputField.setText(reciprocalStr.replace(".0", ""));
-                }
-                outputField.setText(reciprocalStr);
-            }
-        } else if (cmdSource == equButton) {
-            // We will replace the .0 for all of our double calculations that are not a
-            // decimal (i.e. Double)
-            switch (operator) {
-                case '+':
-                    solution = inputNo + Double.parseDouble(outputField.getText());
-                    if (Double.toString(solution).endsWith(".0")) {
-                        outputField.setText(Double.toString(solution).replace(".0", ""));
-                    } else {
-                        outputField.setText(Double.toString(solution));
-                    }
-                    break;
-                case '-':
-                    solution = inputNo - Double.parseDouble(outputField.getText());
-                    if (Double.toString(solution).endsWith(".0")) {
-                        outputField.setText(Double.toString(solution).replace(".0", ""));
-                    } else {
-                        outputField.setText(Double.toString(solution));
-                    }
-                    break;
-                case '*':
-                    solution = inputNo * Double.parseDouble(outputField.getText());
-                    if (Double.toString(solution).endsWith(".0")) {
-                        outputField.setText(Double.toString(solution).replace(".0", ""));
-                    } else {
-                        outputField.setText(Double.toString(solution));
-                    }
-                    break;
-                case '/':
-                    solution = inputNo / Double.parseDouble(outputField.getText());
-                    if (Double.toString(solution).endsWith(".0")) {
-                        outputField.setText(Double.toString(solution).replace(".0", ""));
-                    } else {
-                        outputField.setText(Double.toString(solution));
-                    }
-                    break;
+                outputField.setText(sqRtStr);
             }
         }
+    }
+
+    private void calculateReciprocal() {
+        // Error handling for getting the reciprocal of an empty field
+        if (outputField.getText().equals("")) {
+            outputField.setText("NaN");
+        } else {
+            inputNo = Double.parseDouble(outputField.getText());
+            Double reciprocal = 1 / inputNo;
+            String reciprocalStr = Double.toString(reciprocal);
+            if (reciprocalStr.endsWith(".0")) {
+                outputField.setText(reciprocalStr.replace(".0", ""));
+            } else {
+                outputField.setText(reciprocalStr);
+            }
+        }
+    }
+
+    private void calculate() {
+        // We will replace the .0 for all of our double calculations that are not a decimal (i.e. Double)
+        switch (operator) {
+            case '+':
+                solution = inputNo + Double.parseDouble(outputField.getText());
+                if (Double.toString(solution).endsWith(".0")) {
+                    outputField.setText(Double.toString(solution).replace(".0", ""));
+                } else {
+                    outputField.setText(Double.toString(solution));
+                }
+                break;
+            case '-':
+                solution = inputNo - Double.parseDouble(outputField.getText());
+                if (Double.toString(solution).endsWith(".0")) {
+                    outputField.setText(Double.toString(solution).replace(".0", ""));
+                } else {
+                    outputField.setText(Double.toString(solution));
+                }
+                break;
+            case '*':
+                solution = inputNo * Double.parseDouble(outputField.getText());
+                if (Double.toString(solution).endsWith(".0")) {
+                    outputField.setText(Double.toString(solution).replace(".0", ""));
+                } else {
+                    outputField.setText(Double.toString(solution));
+                }
+                break;
+            case '/':
+                solution = inputNo / Double.parseDouble(outputField.getText());
+                if (Double.toString(solution).endsWith(".0")) {
+                    outputField.setText(Double.toString(solution).replace(".0", ""));
+                } else {
+                    outputField.setText(Double.toString(solution));
+                }
+                break;
+        }
+    }
+
+    private void deleteInput() {
+        // Variable length takes length of getText (i.e. calculator entry in outputField)
+        // We will use StringBuilder to create a mutable string of chars like an array from the outputField entry.
+        int length = outputField.getText().length();
+        // Val removes one number from the length of getText entry so that it starts deleting from the last element of our string of chars
+        int val = length - 1;
+
+        // If outputField length is NOT empty or begins at the 0 index start deleting
+        if (length > 0) {
+            StringBuilder delBack = new StringBuilder(outputField.getText());
+            delBack.deleteCharAt(val);
+            outputField.setText(delBack.toString());
+        } else {
+            outputField.setText("0"); // Problem: If you press another # afterward, it appears like (ex. 02)
+        }
+    }
+
+    private void clearOutput() {
+        outputField.setText(Integer.toString(resetVal));
     }
 
     /**
