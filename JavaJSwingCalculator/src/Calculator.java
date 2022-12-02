@@ -29,6 +29,7 @@ public class Calculator implements ActionListener {
     private JButton sqButton;
     private JButton reciprocalButton;
     private JButton sqRtButton;
+    private JButton[] numBtnsArry;
 
     private double inputNo;
     private double solution;
@@ -71,6 +72,18 @@ public class Calculator implements ActionListener {
         sqButton = new JButton("x\u00B2");
         reciprocalButton = new JButton("1/x");
         sqRtButton = new JButton("\u221A");
+        numBtnsArry = new JButton[10];
+        numBtnsArry[0] = zeroButton;
+        numBtnsArry[1] = oneButton;
+        numBtnsArry[2] = twoButton;
+        numBtnsArry[3] = threeButton;
+        numBtnsArry[4] = fourButton;
+        numBtnsArry[5] = fiveButton;
+        numBtnsArry[6] = sixButton;
+        numBtnsArry[7] = sevenButton;
+        numBtnsArry[8] = eightButton;
+        numBtnsArry[9] = nineButton;
+
     }
 
     public void createCalculatorFrame() {
@@ -323,6 +336,11 @@ public class Calculator implements ActionListener {
             outputField.setText("0");
         }
 
+        for (int i = 0; i < 10; i++) {
+            if (cmdSource == numBtnsArry[i]) {
+                outputField.setText(outputField.getText().concat(String.valueOf(i)));
+            } 
+        }
         if (cmdSource == onButton) {
             enable();
         } else if (cmdSource == offButton) {
@@ -331,38 +349,38 @@ public class Calculator implements ActionListener {
             clearOutput();
         } else if (cmdSource == delButton) {
             deleteInput();
-        } else if (cmdSource == zeroButton) {
-            outputField.setText("0");
-            // // If zero is pressed and is the first number in the outputField, set the outputField to blank
-            // if (outputField.getText().equals("0")) {
-            //     outputField.setText("");
-            // } else {
-            //     outputField.setText(outputField.getText() + "0");
-            // }
+        // } else if (cmdSource == zeroButton) {
+        //     outputField.setText("0");
+        //     // // If zero is pressed and is the first number in the outputField, set the outputField to blank
+        //     // if (outputField.getText().equals("0")) {
+        //     //     outputField.setText("");
+        //     // } else {
+        //     //     outputField.setText(outputField.getText() + "0");
+        //     // }
         } else if (cmdSource == decButton) {
             if (outputField.getText().contains(".")) {
                 return;
             } else {
                 outputField.setText(outputField.getText() + ".");
             }
-        } else if (cmdSource == oneButton) {
-            outputField.setText(outputField.getText() + "1");
-        } else if (cmdSource == twoButton) {
-            outputField.setText(outputField.getText() + "2");
-        } else if (cmdSource == threeButton) {
-            outputField.setText(outputField.getText() + "3");
-        } else if (cmdSource == fourButton) {
-            outputField.setText(outputField.getText() + "4");
-        } else if (cmdSource == fiveButton) {
-            outputField.setText(outputField.getText() + "5");
-        } else if (cmdSource == sixButton) {
-            outputField.setText(outputField.getText() + "6");
-        } else if (cmdSource == sevenButton) {
-            outputField.setText(outputField.getText() + "7");
-        } else if (cmdSource == eightButton) {
-            outputField.setText(outputField.getText() + "8");
-        } else if (cmdSource == nineButton) {
-            outputField.setText(outputField.getText() + "9");
+        // } else if (cmdSource == oneButton) {
+        //     outputField.setText(outputField.getText() + "1");
+        // } else if (cmdSource == twoButton) {
+        //     outputField.setText(outputField.getText() + "2");
+        // } else if (cmdSource == threeButton) {
+        //     outputField.setText(outputField.getText() + "3");
+        // } else if (cmdSource == fourButton) {
+        //     outputField.setText(outputField.getText() + "4");
+        // } else if (cmdSource == fiveButton) {
+        //     outputField.setText(outputField.getText() + "5");
+        // } else if (cmdSource == sixButton) {
+        //     outputField.setText(outputField.getText() + "6");
+        // } else if (cmdSource == sevenButton) {
+        //     outputField.setText(outputField.getText() + "7");
+        // } else if (cmdSource == eightButton) {
+        //     outputField.setText(outputField.getText() + "8");
+        // } else if (cmdSource == nineButton) {
+        //     outputField.setText(outputField.getText() + "9");
         } else if (cmdSource == addButton) {
             inputNo = Double.parseDouble(outputField.getText());
             outputField.setText("");
