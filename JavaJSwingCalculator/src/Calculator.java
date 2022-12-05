@@ -241,7 +241,7 @@ public class Calculator implements ActionListener {
     private void addEquButton() {
         equButton.setBounds(220, 350, 60, 100);
         equButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        equButton.setBackground(new Color(239, 188, 2));
+        equButton.setBackground(new Color(88, 214, 141));
         frame.add(equButton);
         equButton.addActionListener(this);
     }
@@ -249,7 +249,7 @@ public class Calculator implements ActionListener {
     private void addDivButton() {
         divButton.setBounds(220, 110, 60, 40);
         divButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        divButton.setBackground(new Color(230, 201, 54));
+        divButton.setBackground(new Color(247, 220, 111));
         frame.add(divButton);
         divButton.addActionListener(this);
     }
@@ -257,7 +257,7 @@ public class Calculator implements ActionListener {
     private void addSqRtButton() {
         sqRtButton.setBounds(10, 170, 60, 40);
         sqRtButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        sqRtButton.setBackground(new Color(230, 201, 54));
+        sqRtButton.setBackground(new Color(247, 220, 111));
         frame.add(sqRtButton);
         sqRtButton.addActionListener(this);
     }
@@ -265,15 +265,15 @@ public class Calculator implements ActionListener {
     private void addSqButton() {
         sqButton.setBounds(80, 170, 60, 40);
         sqButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        sqButton.setBackground(new Color(230, 201, 54));
+        sqButton.setBackground(new Color(247, 220, 111));
         frame.add(sqButton);
         sqButton.addActionListener(this);
     }
 
     private void addReciprocalButton() {
         reciprocalButton.setBounds(150, 170, 60, 40);
-        reciprocalButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        reciprocalButton.setBackground(new Color(230, 201, 54));
+        reciprocalButton.setFont(new Font("Sans Serif", Font.BOLD, 18));
+        reciprocalButton.setBackground(new Color(247, 220, 111));
         frame.add(reciprocalButton);
         reciprocalButton.addActionListener(this);
     }
@@ -281,7 +281,7 @@ public class Calculator implements ActionListener {
     private void addMultButton() {
         multButton.setBounds(220, 170, 60, 40);
         multButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        multButton.setBackground(new Color(230, 201, 54));
+        multButton.setBackground(new Color(247, 220, 111));
         frame.add(multButton);
         multButton.addActionListener(this);
     }
@@ -289,7 +289,7 @@ public class Calculator implements ActionListener {
     private void addSubButton() {
         subButton.setBounds(220, 230, 60, 40);
         subButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        subButton.setBackground(new Color(230, 201, 54));
+        subButton.setBackground(new Color(247, 220, 111));
         frame.add(subButton);
         subButton.addActionListener(this);
     }
@@ -297,14 +297,14 @@ public class Calculator implements ActionListener {
     private void addAddButton() {
         addButton.setBounds(220, 290, 60, 40);
         addButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
-        addButton.setBackground(new Color(230, 201, 54));
+        addButton.setBackground(new Color(247, 220, 111));
         frame.add(addButton);
         addButton.addActionListener(this);
     }
 
     private void addDelButton() {
         delButton.setBounds(150, 110, 60, 40);
-        delButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
+        delButton.setFont(new Font("Sans Serif", Font.BOLD, 17));
         delButton.setBackground(new Color(216, 87, 51));
         frame.add(delButton);
         delButton.addActionListener(this);
@@ -312,7 +312,7 @@ public class Calculator implements ActionListener {
 
     private void addClrButton() {
         clrButton.setBounds(80, 110, 60, 40);
-        clrButton.setFont(new Font("Sans Serif", Font.BOLD, 20));
+        clrButton.setFont(new Font("Sans Serif", Font.BOLD, 18));
         clrButton.setBackground(new Color(216, 87, 51));
         frame.add(clrButton);
         clrButton.addActionListener(this);
